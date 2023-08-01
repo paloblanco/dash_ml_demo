@@ -21,37 +21,55 @@ app.layout = html.Div([
     dcc.Input(
         id='input-usd',
         type='number',
-        placeholder="Enter the dollar amount of your loan"
+        placeholder="Enter the dollar amount of your loan",
+        style= {
+            "width": "150em"
+        },
     ),
     html.Br(),
     dcc.Input(
         id='input-term',
         type='number',
-        placeholder="Enter the length of the loan in years"
+        placeholder="Enter the length of the loan in years",
+        style= {
+            "width": "150em"
+        },
     ),
     html.Br(),
     dcc.Input(
         id='input-newjobcount',
         type='number',
-        placeholder="Enter the number of jobs you will create"
+        placeholder="Enter the number of jobs you will create",
+        style= {
+            "width": "150em"
+        },
     ),
     html.Br(),
     dcc.Input(
         id='input-empno',
         type='number',
-        placeholder="Enter the number of employees you will have"
+        placeholder="Enter the number of employees you will have",
+        style= {
+            "width": "150em"
+        },
     ),
     html.Br(),
     dcc.Dropdown(
         ["Yes","No"],
         id='dropdown-realestate',
-        placeholder="Will this loan be used to purchase real estate?"
+        placeholder="Will this loan be used to purchase real estate?",
+        style= {
+            "width": "30em"
+        },
     ),
     html.Br(),
     dcc.Dropdown(
         [0,1,2],
         id='dropdown-urbanrural',
-        placeholder="Select your urban-rural code"
+        placeholder="Select your urban-rural code",
+        style= {
+            "width": "30em"
+        },
         ),
     html.Br(),
     html.Button('Submit', id='submit-val', n_clicks=0),
@@ -85,7 +103,12 @@ def update_result(clicks, amount_usd, term_years,
         }
     df_predict = pd.DataFrame(info_for_prediction,index=[0])
     df_predict = scaler.transform(df_predict)
-    return model.predict(df_predict)
+    answer = model.predict(df_predict)
+    if answer == 0:
+        result = "You were approved!"
+    else:
+        result = "You were denied."
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)
