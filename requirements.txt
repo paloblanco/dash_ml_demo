@@ -1,0 +1,4 @@
+scikit-learn
+pandas
+dash
+jupyter
